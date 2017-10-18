@@ -1,7 +1,7 @@
 # pyqt-sf-sim
 First working version. README to be finished.
 
-To run:
+To run the program:
 
     python3 pyqtsfsim_app.py
 
