@@ -425,10 +425,11 @@ class PlotListModel(QtCore.QAbstractTableModel):
                 col = index.column()
                 line1 = self.__axes.lines[row]
                 if col == 0 and role == QtCore.Qt.CheckStateRole:            
-                    if value == QtCore.Qt.Unchecked and line1.get_visible():
-                        self.__visibleCount -= 1
-                        line1.set_visible(False)
-                        line1.set_label('_' + self.__names[row])                    
+                    if value == QtCore.Qt.Unchecked:
+                        if line1.get_visible():
+                            self.__visibleCount -= 1
+                            line1.set_visible(False)
+                            line1.set_label('_' + self.__names[row])                    
                     else:
                         if not line1.get_visible():
                             self.__visibleCount += 1
