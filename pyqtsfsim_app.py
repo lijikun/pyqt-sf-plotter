@@ -412,7 +412,7 @@ class App_MainWindow(Ui_MainWindow):
         j = 0 if self.__axisType else 1
         for index in self.listView_Raw_Traces.selectedIndexes():
             dataX, dataY = (self.listView_Raw_Traces.model().data(index, role = QtCore.Qt.UserRole))
-            name1 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ' : ' \
+            name1 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ': ' \
                 + ('l' if self.__axisType else 't') + '=' \
                 + str(self.listView_Raw_Traces.model().data(index, role = QtCore.Qt.DisplayRole))
             dataXs.append(dataX)
@@ -445,7 +445,7 @@ class App_MainWindow(Ui_MainWindow):
                         if pAxis[i] == self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.DisplayRole):
                             dataX1 = pFileObj.t if self.__axisType else pFileObj.w
                             dataY1 = pFileObj.z[i] if self.__axisType else [z1[i] for z1 in pFileObj.z]
-                            name1 = 'File' + str(k) + ' : ' + ('l' if self.__axisType else 't') \
+                            name1 = 'File' + str(k) + ': ' + ('l' if self.__axisType else 't') \
                                 + '=' + str(pAxis[i])
                             dataXs.append(dataX1)
                             dataYs.append(dataY1)
