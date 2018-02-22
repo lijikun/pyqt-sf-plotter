@@ -431,7 +431,7 @@ class App_MainWindow(Ui_MainWindow):
         j = 0 if self.__axisType else 1
         for index0 in self.listView_Raw_Traces.selectedIndexes():
             dataX0, dataY0 = (self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.UserRole))
-            name0 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ' : ' \
+            name0 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ': ' \
                 + ('l' if self.__axisType else 't') + '=' \
                 + str(self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.DisplayRole))
             dataXs.append(dataX0)
