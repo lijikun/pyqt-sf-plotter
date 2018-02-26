@@ -1,12 +1,12 @@
-# pyqt-sf-sim
+# pyqt-sf-plotter
 First working version. README to be finished.
 
 To run the program:
 
-    python3 pyqtsfsim_app.py
+    python3 pyqtsfplotter_app.py
 
-To modify pyqtsfsim_gui.py, use Qt Designer to edit pyqtsfsim_gui.ui and run
+To modify pyqtsfplotter_gui.py, use Qt Designer to edit pyqtsfplotter_gui.ui and run
 
-    pyuic5 pyqtsfsim_gui.ui -o pyqtsfsim_gui.py
+    pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py
 
 
