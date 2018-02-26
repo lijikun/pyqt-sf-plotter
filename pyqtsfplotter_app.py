@@ -18,9 +18,9 @@ if os.name == 'nt':
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 # Don't modifie gui module by hand!
-from pyqtsfsim_gui import Ui_MainWindow
+from pyqtsfplotter_gui import Ui_MainWindow
 #
-from pyqtsfsim_models import DataFileObject, DataInSingleFileListModel, \
+from pyqtsfplotter_models import DataFileObject, DataInSingleFileListModel, \
     DataFilesListModel, PlotListModel
 
 def aboutMessage():
