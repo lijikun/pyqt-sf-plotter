@@ -22,7 +22,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>PyQt Stopped-Flow Simulator</string>
+   <string>PyQt Stopped-Flow Plotter</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -196,7 +196,9 @@
                 <string>+ From All Files</string>
                </property>
                <property name="icon">
-                <iconset theme="edit-copy"/>
+                <iconset theme="edit-copy">
+                 <normaloff/>
+                </iconset>
                </property>
               </widget>
              </item>

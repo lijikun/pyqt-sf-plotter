@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'pyqtsfplotter_gui.ui'
+# Form implementation generated from reading ui file './pyqtsfplotter_gui.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -499,7 +499,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "PyQt Stopped-Flow Simulator"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "PyQt Stopped-Flow Plotter"))
         self.label_Data.setText(_translate("MainWindow", "Data"))
         self.toolButton_Import_Raw_Data.setToolTip(_translate("MainWindow", "Import raw data from file(s)."))
         self.toolButton_Import_Raw_Data.setText(_translate("MainWindow", "Import ..."))
