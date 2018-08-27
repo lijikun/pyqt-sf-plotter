@@ -160,7 +160,7 @@ class DataInSingleFileListModel(QtCore.QAbstractListModel):
                     num = float(value)
                 except ValueError:
                     str1 = str(value)
-                    if str1.startswith('_s/'):
+                    if str1.startswith(':s/'):
                         strSplit = str1[3:].split('/')
                         if len(strSplit) == 3:
                             if strSplit[2] == 'g':
