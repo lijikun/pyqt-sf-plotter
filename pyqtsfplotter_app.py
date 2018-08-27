@@ -28,8 +28,6 @@ def aboutMessage():
 """Author: Jikun Li
 Version: 0.99
 
-This program is licenced under GPL v3.
-
 The program is developed using the following open source tools and libraries:
     Python 3.5.3 <https://docs.python.org/3/license.html>
     PyQt 5.7 <https://www.riverbankcomputing.com/commercial/license-faq>
