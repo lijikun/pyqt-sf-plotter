@@ -242,9 +242,9 @@ class PlotListModel(QtCore.QAbstractTableModel):
     lineWidth = 2
     maxMarkers = 100
     markerRatio = 2.5
-    __palette = mpl_cm.get_cmap('Vega10')
+    __palette = mpl_cm.get_cmap('Dark2')
     __currentColor = -1
-    __maxColor = 10
+    __maxColor = 8
     __xmargin = 0.02
     __ymargin = 0.02    
 
