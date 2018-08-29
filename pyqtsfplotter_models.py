@@ -360,7 +360,7 @@ class PlotListModel(QtCore.QAbstractTableModel):
             if role == QtCore.Qt.TextAlignmentRole:
                 return QtCore.Qt.AlignLeft
             elif role == QtCore.Qt.ToolTipRole:
-                return 'Double click fields to edit. \nCan use _s/find/replace/ to do replacement, or _s/find/replace/g to replace in all files.'
+                return 'Double click fields to edit. \nCan use :s/find/replace/ to do replacement, or :s/find/replace/g to replace in all files.'
             elif section == 0 and role == QtCore.Qt.DisplayRole:
                 return 'Name'
             elif section == 1 and role == QtCore.Qt.DisplayRole:
@@ -450,7 +450,7 @@ class PlotListModel(QtCore.QAbstractTableModel):
                         self.__names[row] = newName
                         if line1.get_visible():
                             line1.set_label(self.__names[row])
-                    elif newName.startswith('_s/'):
+                    elif newName.startswith(':s/'):
                         splitNewName = newName[3:].split('/')
                         if len(splitNewName) == 3:
                             if splitNewName[2] == 'g':
