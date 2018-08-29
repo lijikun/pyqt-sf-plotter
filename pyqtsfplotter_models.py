@@ -445,8 +445,8 @@ class PlotListModel(QtCore.QAbstractTableModel):
                             continue
                 elif col == 0 and role == QtCore.Qt.EditRole:
                     newName = str(value)
-                    # Doesn't accept empty string or a string starting with '_'.
-                    if newName and newName[0] != '_':
+                    # Doesn't accept empty string or a string starting with ':'.
+                    if newName and newName[0] != ':':
                         self.__names[row] = newName
                         if line1.get_visible():
                             line1.set_label(self.__names[row])
