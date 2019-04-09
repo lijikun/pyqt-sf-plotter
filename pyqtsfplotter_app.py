@@ -486,10 +486,11 @@ class App_MainWindow(Ui_MainWindow):
             QtWidgets.QFileDialog.Options() | QtWidgets.QFileDialog.DontUseNativeDialog)
         if openTextFiles[0]:
             openedAtLeastOneFile = False
+            lastIndex = self.comboBox_Select_File.model().rowCount()
             for fileName in openTextFiles[0]:
                 openedAtLeastOneFile |= self.fListModel.appendRow(fileName)
             if openedAtLeastOneFile:
-                self.comboBox_Select_File.setCurrentIndex(self.comboBox_Select_File.model().rowCount() - 1)
+                self.comboBox_Select_File.setCurrentIndex(lastIndex)
     
     # Saves time traces to .txt file, compatible with above function.
     __savedTxtCount = 1
