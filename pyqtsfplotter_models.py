@@ -364,9 +364,9 @@ class PlotListModel(QtCore.QAbstractTableModel):
             elif section == 0 and role == QtCore.Qt.DisplayRole:
                 return 'Name'
             elif section == 1 and role == QtCore.Qt.DisplayRole:
-                return '#RGBA'
+                return 'Color (#RGBA)'
             elif section == 2 and role == QtCore.Qt.DisplayRole:
-                return 'Style'
+                return 'Line Style'
         elif orientation == QtCore.Qt.Vertical and role == QtCore.Qt.DisplayRole and section < self.rowCount():
             return section
         else:
