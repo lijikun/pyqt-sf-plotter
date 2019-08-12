@@ -19,7 +19,7 @@ To run on Window$, first put a Python3's `python.exe` in `PATH`, and run:
 
     python pyqtsfplotter_app.py
 
-Don't modify pyqtsfplotter_gui.py. Rather, use Qt Designer to edit pyqtsfplotter_gui.ui and run
+To change the GUI, don't modify `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run
 
     pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py
 
