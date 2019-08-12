@@ -1,5 +1,9 @@
 // https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 
+# Custom
+~
+*.bak
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
