@@ -1,6 +1,6 @@
 # pyqt-sf-plotter
 
-Plotter for stopped-flow (SF) spectroscopy data. Written in PyQt.
+Cross-platform plotter for stopped-flow (SF) spectroscopy data. Written in PyQt.
 
 Dependencies (version under which this app is written): Qt 5.7.1, Python 3.5.3, PyQt 5.7, Numpy 1.12.1, Matplotlib 2.0.0.
 
