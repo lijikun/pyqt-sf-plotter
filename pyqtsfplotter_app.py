@@ -149,6 +149,7 @@ class App_MainWindow(Ui_MainWindow):
         self.figures[1].axes[0].set_xlabel('Wavelength (nm)', fontsize = PlotListModel.fontSize)
         self.figures[1].axes[0].tick_params(labelsize=PlotListModel.fontSize)
         self.tabWidget.currentChanged.connect(self.tabSwitch)
+        self.autoResizePlotRange()
 
         # Specials
         self.toolButton_Reset.clicked.connect(self.resetCurrentCanvas)
