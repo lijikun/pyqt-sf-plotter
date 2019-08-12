@@ -4,7 +4,12 @@ Cross-platform plotter for stopped-flow (SF) spectroscopy data. Written in PyQt.
 
 ![ScreenShot](/exampleData/screenshot-xfce.png)
 
-Dependencies (version under which this app is written): Qt 5.7.1, Python 3.5.3, PyQt 5.7, Numpy 1.12.1, Matplotlib 2.0.0.
+Dependencies (version under which this app is written): 
+  * Qt 5.7.1 
+  * Python 3.5.3 
+  * PyQt 5.7 
+  * Numpy 1.12.1 
+  * Matplotlib 2.0.0.
 
 To run the program (under Linux):
 
