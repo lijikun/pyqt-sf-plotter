@@ -192,7 +192,7 @@ class App_MainWindow(Ui_MainWindow):
         pTableView.clearSelection()
         newModel = PlotListModel(self.figures[j])
         self.plotListModels[j] = newModel
-        pTableView.setModel(newModel)
+        pTableView.setModel(self.plotListModels[j])
         if j == 0:
             self.figures[0].axes[0].set_xlabel('Time (s)', fontsize = PlotListModel.fontSize)
             self.figures[0].axes[0].tick_params(labelsize=PlotListModel.fontSize)
@@ -200,6 +200,7 @@ class App_MainWindow(Ui_MainWindow):
             self.figures[1].axes[0].set_xlabel('Wavelength (nm)', fontsize = PlotListModel.fontSize)
             self.figures[1].axes[0].tick_params(labelsize=PlotListModel.fontSize)        
         newModel.redrawAll()
+        self.comboBox_Ref_To.setModel(self.plotListModels[j])
             
     def setPlotGrid(self, state):
         self.plotListModels[self.stackedWidget_right.currentIndex()].setGrid( \
@@ -416,7 +417,6 @@ class App_MainWindow(Ui_MainWindow):
             self.hidePlotSelected()
             self.selectNoneTraces()
             self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
-            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
             self.autoResizePlotRange()        
 
     def addSelectedBy(self):
@@ -456,7 +456,6 @@ class App_MainWindow(Ui_MainWindow):
             self.hidePlotSelected()
             self.selectNoneTraces()
             self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
-            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
             self.autoResizePlotRange()
             
     def mulSelectedBy(self):
@@ -496,7 +495,6 @@ class App_MainWindow(Ui_MainWindow):
             self.hidePlotSelected()
             self.selectNoneTraces()
             self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
-            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
             self.autoResizePlotRange()
  
     def addSVDResultsToPlot(self):
@@ -536,14 +534,15 @@ class App_MainWindow(Ui_MainWindow):
         for index in self.listView_Raw_Traces.selectedIndexes():
             dataX, dataY = (self.listView_Raw_Traces.model().data(index, role = QtCore.Qt.UserRole))
             name1 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ': ' \
-                + ('l' if self.__axisType else 't') + '=' \
-                + str(self.listView_Raw_Traces.model().data(index, role = QtCore.Qt.DisplayRole))
+                + str(self.listView_Raw_Traces.model().data(index, role = QtCore.Qt.DisplayRole)) \
+                + (' nm' if self.__axisType else ' s')
             dataXs.append(dataX)
             dataYs.append(dataY)
             names.append(name1)        
         self.plotListModels[j].appendRow(names, dataXs, dataYs)
         self.tabWidget.setCurrentIndex(j)
         self.autoResizePlotRange()
+        self.comboBox_Ref_To.setModel(self.plotListModels[j])
 
     # Same as above,
     # but also searches in every open file for selected wavelengths/timepoints and add them to plot.    
@@ -575,8 +574,8 @@ class App_MainWindow(Ui_MainWindow):
                             names.append(name1)
         self.plotListModels[j].appendRow(names, dataXs, dataYs)
         self.tabWidget.setCurrentIndex(j)
-        x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
         self.autoResizePlotRange()
+        self.comboBox_Ref_To.setModel(self.plotListModels[j])
         
     def removeFileFromList(self):
         self.fListModel.removeRows(self.comboBox_Select_File.currentIndex(), 1)
