@@ -78,7 +78,7 @@ class App_MainWindow(Ui_MainWindow):
         self.toolButton_Import_Raw_Data.clicked.connect(self.importRawFiles)
         self.toolButton_Remove_File.clicked.connect(self.removeFileFromList)
         
-        # Lets user pick time traces spectra from raw data files.
+        # Lets user pick time traces or spectra from raw data files.
         self.__axisType = True
         self.toolButton_Toggle_Axis.clicked.connect(self.toggleAxis)
         self.listView_Raw_Traces.setSelectionMode(QtWidgets.QListView.MultiSelection)
@@ -155,6 +155,11 @@ class App_MainWindow(Ui_MainWindow):
         self.pushButton_Exec.clicked.connect(self.execPlotCommand)
         self.lineEdit_Exec_Command.returnPressed.connect(self.execPlotCommand)
         self.pushButton_About.clicked.connect(aboutMessage)
+        
+        # Editing data
+        self.toolButton_Add_By.clicked.connect(self.addSelectedBy)
+        self.toolButton_Mul_By.clicked.connect(self.mulSelectedBy)
+        self.toolButton_Ref_To.clicked.connect(self.refSelectedTo)
 
     # Event handling function
     def execPlotCommand(self):
@@ -265,6 +270,7 @@ class App_MainWindow(Ui_MainWindow):
         else:
             self.toolButton_Export_Traces.setDisabled(False)
             self.checkBox_LogX.setDisabled(False)
+        self.comboBox_Ref_To.setModel(self.plotListModels[j])
         self.plotListModels[j].setGrid(self.checkBox_Grid.isChecked())
         self.plotListModels[j].setLegend(self.checkBox_Legend.isChecked())
         self.plotListModels[self.stackedWidget_right.currentIndex()].refreshLayout()
@@ -373,7 +379,126 @@ class App_MainWindow(Ui_MainWindow):
             values = [QtCore.Qt.Unchecked] * len(pTableView.selectedIndexes())
             pTableView.model().setData( \
                 pTableView.selectedIndexes(), values, role = QtCore.Qt.CheckStateRole) 
+                
+    def refSelectedTo(self):
+        number = self.doubleSpinBox_By.value()
+        j = self.tabWidget.currentIndex()
+        if j == 0:
+            pTableView = self.tableView_Traces
+        elif j == 1:
+            pTableView = self.tableView_Spectra
+        else:
+            return
+        index0 = self.plotListModels[j].index(self.comboBox_Ref_To.currentIndex(), 0);
+        indices = pTableView.selectedIndexes()
+        n = len(indices)
+        if n > 0:
+            x0, y0 = self.plotListModels[j].data(index0, role = QtCore.Qt.UserRole)
+            y = []
+            names = []
+            count = 0
+            for i in range(n):
+                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
+                if numpy.array_equal(x0, x1):
+                    y.append(y1 - y0)
+                    names.append(name1 + ' - Ref')
+                else:
+                    count += 1
+            if count > 0:
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
+                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when modifying data.', \
+                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+                if msgBox != QtWidgets.QMessageBox.Ok:
+                    pass
+                else:
+                    return
+            self.hidePlotSelected()
+            self.selectNoneTraces()
+            self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
+            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
+            self.autoResizePlotRange()        
 
+    def addSelectedBy(self):
+        number = self.doubleSpinBox_By.value()
+        j = self.tabWidget.currentIndex()
+        if number == 0.0:
+            return
+        elif j == 0:
+            pTableView = self.tableView_Traces
+        elif j == 1:
+            pTableView = self.tableView_Spectra
+        else:
+            return
+        indices = pTableView.selectedIndexes()
+        n = len(indices)
+        if n > 0:
+            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
+            y = [y0 + number]
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' + ' +str(number)]
+            count = 0
+            for i in range(1, n):
+                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
+                if numpy.array_equal(x0, x1):
+                    y.append(y1 + number)
+                    names.append(name1 + ' + ' + str(number))
+                else:
+                    count += 1
+            if count > 0:
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
+                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when modifying data.', \
+                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+                if msgBox != QtWidgets.QMessageBox.Ok:
+                    pass
+                else:
+                    return
+            self.hidePlotSelected()
+            self.selectNoneTraces()
+            self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
+            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
+            self.autoResizePlotRange()
+            
+    def mulSelectedBy(self):
+        number = self.doubleSpinBox_By.value()
+        j = self.tabWidget.currentIndex()
+        if number == 0.0:
+            return
+        elif j == 0:
+            pTableView = self.tableView_Traces
+        elif j == 1:
+            pTableView = self.tableView_Spectra
+        else:
+            return
+        indices = pTableView.selectedIndexes()
+        n = len(indices)
+        if n > 0:
+            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
+            y = [y0 * number]
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' * ' +str(number)]
+            count = 0
+            for i in range(1, n):
+                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
+                if numpy.array_equal(x0, x1):
+                    y.append(y1 * number)
+                    names.append(name1 + ' * ' + str(number))
+                else:
+                    count += 1
+            if count > 0:
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
+                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when modifying data.', \
+                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+                if msgBox != QtWidgets.QMessageBox.Ok:
+                    pass
+                else:
+                    return
+            self.hidePlotSelected()
+            self.selectNoneTraces()
+            self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
+            x0, x1, y0, y1 = self.plotListModels[j].redrawAll()
+            self.autoResizePlotRange()
+ 
     def addSVDResultsToPlot(self):
         matrix = []
         rowXData = []
@@ -476,6 +601,7 @@ class App_MainWindow(Ui_MainWindow):
                 self.label_Current_Axis.setText('Selection Axis: Timepoints')
                 self.label_Current_Axis.setToolTip('Spectra at different timepoints.')
             self.listView_Raw_Traces.scrollToTop()
+            self.listView_Raw_Traces.clearSelection()
         
     # Imports a text file for raw data.    
     def importRawFiles(self):

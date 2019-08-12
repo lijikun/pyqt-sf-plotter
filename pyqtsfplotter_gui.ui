@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>800</height>
+    <width>1280</width>
+    <height>960</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -197,8 +197,7 @@
                </property>
                <property name="icon">
                 <iconset theme="edit-copy">
-                 <normaloff/>
-                </iconset>
+                 <normaloff>.</normaloff>.</iconset>
                </property>
               </widget>
              </item>
@@ -214,6 +213,16 @@
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton_SVD">
+               <property name="toolTip">
+                <string>Perform SVD on selected data, and send first n eigenvectors to plot.</string>
+               </property>
+               <property name="text">
+                <string>SVD</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QSpinBox" name="spinBox_SVD">
@@ -255,16 +264,6 @@
                </property>
                <property name="text">
                 <string>Weighted</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_SVD">
-               <property name="toolTip">
-                <string>Perform SVD on selected data, and send first n eigenvectors to plot.</string>
-               </property>
-               <property name="text">
-                <string>SVD</string>
                </property>
               </widget>
              </item>
@@ -554,6 +553,97 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QToolButton" name="toolButton_Add_By">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Add data by a scalar number.</string>
+           </property>
+           <property name="text">
+            <string>+</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_Mul_By">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Multiply data by a number.</string>
+           </property>
+           <property name="text">
+            <string>×</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>By</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_By">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="decimals">
+            <number>3</number>
+           </property>
+           <property name="minimum">
+            <double>-10.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_Ref_To">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Subtract selected data by a reference.</string>
+           </property>
+           <property name="text">
+            <string>Ref. To:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBox_Ref_To">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLabel" name="label_5">
@@ -714,7 +804,7 @@
          <item>
           <widget class="QCheckBox" name="checkBox_LogX">
            <property name="text">
-            <string>lgX</string>
+            <string>log10x</string>
            </property>
           </widget>
          </item>
@@ -781,7 +871,7 @@
          <item>
           <widget class="QCheckBox" name="checkBox_LogY">
            <property name="text">
-            <string>lgY</string>
+            <string>log10y</string>
            </property>
           </widget>
          </item>
