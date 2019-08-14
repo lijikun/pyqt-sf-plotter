@@ -267,10 +267,10 @@ class App_MainWindow(Ui_MainWindow):
         self.figures[j].axes[0].set_yscale( \
             'log' if self.checkBox_LogY.isChecked() else 'linear')
         if j == 1:
-            self.toolButton_Export_Traces.setDisabled(True)
+            #self.pushButton_Export_Traces.setDisabled(True)
             self.checkBox_LogX.setDisabled(True)
         else:
-            self.toolButton_Export_Traces.setDisabled(False)
+            #self.pushButton_Export_Traces.setDisabled(False)
             self.checkBox_LogX.setDisabled(False)
         self.comboBox_Ref_To.setModel(self.plotListModels[j])
         self.plotListModels[j].setGrid(self.checkBox_Grid.isChecked())
@@ -650,25 +650,27 @@ class App_MainWindow(Ui_MainWindow):
     # Saves time traces to .txt file, compatible with above function.
     __savedTxtCount = 1
     def saveSelectedTracesToTxt(self):
-        indices = self.tableView_Traces.selectedIndexes()
+        j = self.tabWidget.currentIndex()
+        pTableView = self.tableView_Traces if j == 0 else self.tableView_Spectra
+        indices = pTableView.selectedIndexes()
         n = len(indices)
         if n > 0:
-            t, y0 = self.plotListModels[0].data(indices[0], role = QtCore.Qt.UserRole)
+            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
             y = [y0]
             # Needs to remove spaces in names.
-            names = [self.plotListModels[0].data(indices[0], role = QtCore.Qt.DisplayRole).replace(' ', '')]
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole).replace(' ', '')]
             count = 0
             for i in range(1, n):
-                (x1, y1) = self.plotListModels[0].data(indices[i], role = QtCore.Qt.UserRole)
-                name1 = self.plotListModels[0].data(indices[i], role = QtCore.Qt.DisplayRole).replace(' ', '')
-                if numpy.array_equal(t, x1):
+                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole).replace(' ', '')
+                if numpy.array_equal(x0, x1):
                     y.append(y1)
                     names.append(name1)
                 else:
                     count += 1
             if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
-                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when saving data.', \
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-axis Points', \
+                    'Found ' + str(count) + ' selected datasets with different x-axis points. They will be ignored when saving data.', \
                     QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                 if msgBox != QtWidgets.QMessageBox.Ok:
                     pass
@@ -681,14 +683,30 @@ class App_MainWindow(Ui_MainWindow):
             if saveTxtFile[0]:
                 with open(saveTxtFile[0], 'w') as file1:
                     file1.write('Time')
-                    for name1 in names:
-                        file1.write('\t{0}'.format(name1))
-                    file1.write('\n')
-                    for j in range(len(t)):
-                        file1.write('{0}'.format(t[j]))
-                        for k in range(len(y)):
-                            file1.write('\t{0}'.format(y[k][j]))
+                    if j == 0:
+                        for name1 in names:
+                            file1.write('\t{0}'.format(name1))
+                        file1.write('\n')                    
+                        for k in range(len(x0)):
+                            file1.write('{0}'.format(x0[k]))
+                            for l in range(len(y)):
+                                file1.write('\t{0}'.format(y[l][k]))
+                            file1.write('\n')
+                    else:
+                        try:
+                            names1 = numpy.array([float(x) for x in names])
+                        except ValueError: 
+                            seq1=list(range(len(names)))
+                        else:
+                            seq1=names1.argsort()
+                        for x1 in x0:
+                            file1.write('\t{0}'.format(x1))
                         file1.write('\n')
+                        for k in range(len(y)):
+                            file1.write('{0}'.format(names[seq1[k]]))
+                            for l in range(len(x0)):
+                                file1.write('\t{0}'.format(y[seq1[k]][l]))
+                            file1.write('\n')                        
                     file1.close()
                     self.__savedTxtCount += 1
                 
