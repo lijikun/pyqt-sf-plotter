@@ -160,6 +160,7 @@ class App_MainWindow(Ui_MainWindow):
         self.toolButton_Add_By.clicked.connect(self.addSelectedBy)
         self.toolButton_Mul_By.clicked.connect(self.mulSelectedBy)
         self.toolButton_Ref_To.clicked.connect(self.refSelectedTo)
+        self.toolButton_Internal_Ref.clicked.connect(self.internalRef)
 
     # Event handling function
     def execPlotCommand(self):
@@ -381,6 +382,34 @@ class App_MainWindow(Ui_MainWindow):
             pTableView.model().setData( \
                 pTableView.selectedIndexes(), values, role = QtCore.Qt.CheckStateRole) 
                 
+    def internalRef(self):
+        x_ref = self.doubleSpinBox_Internal_Ref.value()
+        j = self.tabWidget.currentIndex()
+        if j == 0:
+            pTableView = self.tableView_Traces
+        elif j == 1:
+            pTableView = self.tableView_Spectra
+        else:
+            return
+        indices = pTableView.selectedIndexes()
+        n = len(indices)
+        if n > 0:
+            x = []
+            y = []
+            names = []
+            for i in range (n):
+                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
+                subscript = numpy.absolute(x1 - x_ref).argmin()
+                y_ref = y1[subscript]
+                x.append(x1)
+                y.append(y1 - y_ref)
+                names.append(name1 + ' (-Ref)')
+            self.hidePlotSelected()
+            self.selectNoneTraces()
+            self.plotListModels[j].appendRow(names, x, y)
+            self.autoResizePlotRange() 
+                        
     def refSelectedTo(self):
         number = self.doubleSpinBox_By.value()
         j = self.tabWidget.currentIndex()
@@ -403,7 +432,7 @@ class App_MainWindow(Ui_MainWindow):
                 name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
                 if numpy.array_equal(x0, x1):
                     y.append(y1 - y0)
-                    names.append(name1 + ' - Ref')
+                    names.append(name1 + ' (Diff)')
                 else:
                     count += 1
             if count > 0:
@@ -435,7 +464,8 @@ class App_MainWindow(Ui_MainWindow):
         if n > 0:
             x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
             y = [y0 + number]
-            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' + ' +str(number)]
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) \
+                + ' (' + '+' if number > 0 else '-' + str(abs(number)) + ')']
             count = 0
             for i in range(1, n):
                 (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
@@ -474,7 +504,7 @@ class App_MainWindow(Ui_MainWindow):
         if n > 0:
             x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
             y = [y0 * number]
-            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' * ' +str(number)]
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' (x' + str(number) + ')']
             count = 0
             for i in range(1, n):
                 (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)

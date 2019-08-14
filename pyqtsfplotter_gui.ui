@@ -283,20 +283,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_Save_Figure">
-           <property name="toolTip">
-            <string>Render current figure into a high-res image file.</string>
-           </property>
-           <property name="text">
-            <string>Export Figure ...</string>
-           </property>
-           <property name="icon">
-            <iconset theme="image-x-generic">
-             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="label_dpiNumber">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -353,6 +339,20 @@
            </property>
            <property name="tickInterval">
             <number>150</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Save_Figure">
+           <property name="toolTip">
+            <string>Render current figure into a high-res image file.</string>
+           </property>
+           <property name="text">
+            <string>Export Figure ...</string>
+           </property>
+           <property name="icon">
+            <iconset theme="image-x-generic">
+             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
            </property>
           </widget>
          </item>
@@ -556,7 +556,7 @@
          <item>
           <widget class="QLabel" name="label_6">
            <property name="text">
-            <string>By</string>
+            <string>By:</string>
            </property>
           </widget>
          </item>
@@ -583,6 +583,40 @@
           </widget>
          </item>
          <item>
+          <widget class="QToolButton" name="toolButton_Internal_Ref">
+           <property name="text">
+            <string>Internal Ref.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>At:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="doubleSpinBox_Internal_Ref">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="decimals">
+            <number>3</number>
+           </property>
+           <property name="maximum">
+            <double>1000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
           <widget class="QToolButton" name="toolButton_Ref_To">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -594,7 +628,14 @@
             <string>Subtract selected data by a reference.</string>
            </property>
            <property name="text">
-            <string>Ref. To:</string>
+            <string>Calc. Difference </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>From:</string>
            </property>
           </widget>
          </item>
@@ -733,7 +774,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>xRange</string>
+            <string>xRange:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -781,7 +822,7 @@
          <item>
           <widget class="QCheckBox" name="checkBox_LogX">
            <property name="text">
-            <string>log10x</string>
+            <string>Log x-Axis</string>
            </property>
           </widget>
          </item>
@@ -794,7 +835,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>yRange</string>
+            <string>yRange:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -848,7 +889,7 @@
          <item>
           <widget class="QCheckBox" name="checkBox_LogY">
            <property name="text">
-            <string>log10y</string>
+            <string>Log y-Axis</string>
            </property>
           </widget>
          </item>
@@ -906,7 +947,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Font</string>
+            <string>Font Size:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -944,7 +985,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Lines</string>
+            <string>Linewidth:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -985,7 +1026,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Dots</string>
+            <string>Dots Size:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1020,7 +1061,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string># Dots</string>
+            <string>Density:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
