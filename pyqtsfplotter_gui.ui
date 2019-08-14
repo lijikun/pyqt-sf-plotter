@@ -12,8 +12,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1024</width>
-    <height>800</height>
+    <width>1280</width>
+    <height>960</height>
    </size>
   </property>
   <property name="font">
@@ -55,12 +55,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_Import_Raw_Data">
+          <widget class="QPushButton" name="pushButton_Import_Raw_Data">
            <property name="toolTip">
             <string>Import raw data from file(s).</string>
            </property>
            <property name="text">
-            <string>Import ...</string>
+            <string>Import Raw Data ...</string>
            </property>
            <property name="icon">
             <iconset theme="x-office-spreadsheet">
@@ -276,9 +276,23 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_1">
          <item>
-          <widget class="QLabel" name="label_Plot">
+          <widget class="QLabel" name="label_7">
            <property name="text">
             <string>Plot</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Save_Figure">
+           <property name="toolTip">
+            <string>Render current figure into a high-res image file.</string>
+           </property>
+           <property name="text">
+            <string>Export Figure ...</string>
+           </property>
+           <property name="icon">
+            <iconset theme="image-x-generic">
+             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
            </property>
           </widget>
          </item>
@@ -317,10 +331,10 @@
             </sizepolicy>
            </property>
            <property name="minimum">
-            <number>150</number>
+            <number>100</number>
            </property>
            <property name="maximum">
-            <number>600</number>
+            <number>900</number>
            </property>
            <property name="singleStep">
             <number>50</number>
@@ -339,20 +353,6 @@
            </property>
            <property name="tickInterval">
             <number>150</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_Save_Figure">
-           <property name="toolTip">
-            <string>Render current figure into a high-res image file.</string>
-           </property>
-           <property name="text">
-            <string>Save Image ...</string>
-           </property>
-           <property name="icon">
-            <iconset theme="image-x-generic">
-             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
            </property>
           </widget>
          </item>
@@ -474,19 +474,6 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
           <widget class="QToolButton" name="toolButton_Line">
            <property name="toolTip">
             <string>Toggle selected to line plot.</string>
@@ -517,32 +504,12 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_Reset">
-           <property name="text">
-            <string>Reset</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="toolButton_Export_Traces">
+          <widget class="QPushButton" name="pushButton_Export_Traces">
            <property name="toolTip">
             <string>Export selected time traces in the table as KinTek format text file.</string>
            </property>
            <property name="text">
-            <string>Save .txt ...</string>
+            <string>Save to txt ...</string>
            </property>
            <property name="icon">
             <iconset theme="document-save-as">
@@ -685,6 +652,16 @@
            </property>
            <property name="text">
             <string>--&gt; exec()</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_Reset">
+           <property name="toolTip">
+            <string/>
+           </property>
+           <property name="text">
+            <string>Reset</string>
            </property>
           </widget>
          </item>

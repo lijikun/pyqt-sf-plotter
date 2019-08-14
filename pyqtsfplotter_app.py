@@ -75,7 +75,7 @@ class App_MainWindow(Ui_MainWindow):
         self.fListModel = DataFilesListModel()
         self.comboBox_Select_File.setModel(self.fListModel)        
         self.comboBox_Select_File.setInsertPolicy(QtWidgets.QComboBox.NoInsert)
-        self.toolButton_Import_Raw_Data.clicked.connect(self.importRawFiles)
+        self.pushButton_Import_Raw_Data.clicked.connect(self.importRawFiles)
         self.toolButton_Remove_File.clicked.connect(self.removeFileFromList)
         
         # Lets user pick time traces or spectra from raw data files.
@@ -102,7 +102,7 @@ class App_MainWindow(Ui_MainWindow):
         self.checkBox_Legend.stateChanged.connect(self.setPlotLegend)
         self.toolButton_Apply_Range.clicked.connect(self.applyRange)
         self.toolButton_Auto_Range.clicked.connect(self.autoResizePlotRange)
-        self.toolButton_Save_Figure.clicked.connect(self.saveFigure)
+        self.pushButton_Save_Figure.clicked.connect(self.saveFigure)
         self.doubleSpinBox_xMin.valueChanged.connect(self.xMinChanged)
         self.doubleSpinBox_xMax.valueChanged.connect(self.xMaxChanged)
         self.doubleSpinBox_yMin.valueChanged.connect(self.yMinChanged)
@@ -113,7 +113,7 @@ class App_MainWindow(Ui_MainWindow):
         self.toolButton_Line.clicked.connect(self.linePlotSelected)
         self.toolButton_Scatter.clicked.connect(self.scatterPlotSelected)
         self.toolButton_Hide.clicked.connect(self.hidePlotSelected)
-        self.toolButton_Export_Traces.clicked.connect(self.saveSelectedTracesToTxt)
+        self.pushButton_Export_Traces.clicked.connect(self.saveSelectedTracesToTxt)
         MainWindow.windowSizeChanged.connect(self.resizedWindowArea)  
         
         # Embeds matplotlib plots.        
@@ -149,7 +149,6 @@ class App_MainWindow(Ui_MainWindow):
         self.figures[1].axes[0].set_xlabel('Wavelength (nm)', fontsize = PlotListModel.fontSize)
         self.figures[1].axes[0].tick_params(labelsize=PlotListModel.fontSize)
         self.tabWidget.currentChanged.connect(self.tabSwitch)
-        self.autoResizePlotRange()
 
         # Specials
         self.toolButton_Reset.clicked.connect(self.resetCurrentCanvas)
@@ -663,7 +662,7 @@ class App_MainWindow(Ui_MainWindow):
                     file1.close()
                     self.__savedTxtCount += 1
                 
-    # Exports figure area as 600dpi files.
+    # Exports figure area as image files.
     __savedFigureCount = 1
     def saveFigure(self):
         nameString = ['Time Traces', 'Spectra']
