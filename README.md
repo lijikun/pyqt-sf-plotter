@@ -17,7 +17,9 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
 
 * To run the program on Linux:
 
-  ```python3 pyqtsfplotter_app.py```
+  ```
+  python3 pyqtsfplotter_app.py
+  ```
     
   or
   
@@ -30,12 +32,16 @@ This program is never actually tested on MacOS, but should run fine just like on
 
 * To run on Windows, first put a Python3's `python.exe` in `PATH`, and run:
 
-    ```python pyqtsfplotter_app.py```
+  ```
+  python pyqtsfplotter_app.py
+  ```
     
 ## Notes on Modifying This Program
 
 * To change the GUI, don't modify `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run
 
-    ```pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py```
+  ```
+  pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py
+  ```
 
 * The main window is set to have a size of at least 1280 x 960 pixels. This limit can be reduced if changes are made to the UI, but the program is not guaranteed to run properly. 
