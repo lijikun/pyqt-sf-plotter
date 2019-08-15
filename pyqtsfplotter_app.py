@@ -651,9 +651,13 @@ class App_MainWindow(Ui_MainWindow):
             if self.__axisType:
                 self.label_Current_Axis.setText('Selection Axis: Wavelengths')
                 self.label_Current_Axis.setToolTip('Time traces at different wavelengths.')
+                self.doubleSpinBox_Range_From.setSuffix(' nm')
+                self.doubleSpinBox_Range_To.setSuffix(' nm')
             else:
                 self.label_Current_Axis.setText('Selection Axis: Timepoints')
                 self.label_Current_Axis.setToolTip('Spectra at different timepoints.')
+                self.doubleSpinBox_Range_From.setSuffix(' s')
+                self.doubleSpinBox_Range_To.setSuffix(' s')
             self.listView_Raw_Traces.scrollToTop()
             self.listView_Raw_Traces.clearSelection()
         

@@ -164,6 +164,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_From">
+               <property name="suffix">
+                <string> nm</string>
+               </property>
                <property name="decimals">
                 <number>3</number>
                </property>
@@ -181,6 +184,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_To">
+               <property name="suffix">
+                <string> nm</string>
+               </property>
                <property name="decimals">
                 <number>3</number>
                </property>
