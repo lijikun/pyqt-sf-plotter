@@ -81,11 +81,12 @@ class App_MainWindow(Ui_MainWindow):
         # Lets user pick time traces or spectra from raw data files.
         self.__axisType = True
         self.toolButton_Toggle_Axis.clicked.connect(self.toggleAxis)
-        self.listView_Raw_Traces.setSelectionMode(QtWidgets.QListView.MultiSelection)
         self.comboBox_Select_File.currentIndexChanged.connect(self.fileSelected)
         self.toolButton_Add_This_File.clicked.connect(self.addSelectedToPlot)
         self.toolButton_Add_All_Files.clicked.connect(self.addFromAllFilesToPlot)
         self.toolButton_SVD.clicked.connect(self.addSVDResultsToPlot)
+        self.toolButton_Range_Select_Linear.clicked.connect(self.rangeSelectLinear)
+        self.toolButton_Range_Select_Log.clicked.connect(self.rangeSelectLog)
         
         # Plot controls.
         self.__epsilon = 0.0001
@@ -135,15 +136,8 @@ class App_MainWindow(Ui_MainWindow):
         self.verticalLayout_5.addWidget(self.toolbars[1])
         self.plotListModels = [PlotListModel(fig) for fig in self.figures]
         self.tableView_Traces.setModel(self.plotListModels[0])
-        self.tableView_Traces.horizontalHeader().setSectionResizeMode(0, \
-            QtWidgets.QHeaderView.Stretch)
-        self.tableView_Traces.horizontalHeader().setSectionResizeMode(1, \
-            QtWidgets.QHeaderView.Fixed)
         self.tableView_Spectra.setModel(self.plotListModels[1])
-        self.tableView_Spectra.horizontalHeader().setSectionResizeMode(0, \
-            QtWidgets.QHeaderView.Stretch)
-        self.tableView_Spectra.horizontalHeader().setSectionResizeMode(1, \
-            QtWidgets.QHeaderView.Fixed)
+
         self.figures[0].axes[0].set_xlabel('Time (s)', fontsize = PlotListModel.fontSize)
         self.figures[0].axes[0].tick_params(labelsize=PlotListModel.fontSize)
         self.figures[1].axes[0].set_xlabel('Wavelength (nm)', fontsize = PlotListModel.fontSize)
@@ -554,7 +548,36 @@ class App_MainWindow(Ui_MainWindow):
             self.autoResizePlotRange()
             self.plotListModels[j].appendRow(names, [columnXData] * self.spinBox_SVD.value(), columnYData)
             self.tabWidget.setCurrentIndex(j)
-        
+            
+    def rangeSelectLog(self):
+        pModel = self.listView_Raw_Traces.model()
+        xStart = self.doubleSpinBox_Range_From.value()
+        xEnd = self.doubleSpinBox_Range_To.value()
+        nSteps = self.spinBox_Range_Steps.value()
+        if xStart > 0 and xEnd > 0 and nSteps > 1:
+            x = [xStart * numpy.exp(i * numpy.log(xEnd/xStart) / (nSteps - 1)) \
+                for i in range(nSteps)]
+            indices = [pModel.index(i, 0) for i in range(pModel.rowCount())]
+            x0 = numpy.array([pModel.data(index1, role = QtCore.Qt.DisplayRole) for index1 in indices])
+            for x1 in x:
+                subscript = numpy.absolute(x0 - x1).argmin()
+                self.listView_Raw_Traces.selectionModel().select( \
+                    indices[subscript], QtCore.QItemSelectionModel.Select)
+    
+    def rangeSelectLinear(self):
+        pModel = self.listView_Raw_Traces.model()
+        xStart = self.doubleSpinBox_Range_From.value()
+        xEnd = self.doubleSpinBox_Range_To.value()
+        nSteps = self.spinBox_Range_Steps.value()
+        if xStart > 0 and xEnd > 0 and nSteps > 1:
+            x = [xStart + i * (xEnd - xStart) / (nSteps - 1) for i in range(nSteps)]
+            indices = [pModel.index(i, 0) for i in range(pModel.rowCount())]
+            x0 = numpy.array([pModel.data(index1, role = QtCore.Qt.DisplayRole) for index1 in indices])
+            for x1 in x:
+                subscript = numpy.absolute(x0 - x1).argmin()
+                self.listView_Raw_Traces.selectionModel().select( \
+                    indices[subscript], QtCore.QItemSelectionModel.Select)
+                
     # Add traces selected traces in listView_Raw_Traces to plot.
     def addSelectedToPlot(self):
         dataXs = []
@@ -571,6 +594,7 @@ class App_MainWindow(Ui_MainWindow):
             names.append(name1)        
         self.plotListModels[j].appendRow(names, dataXs, dataYs)
         self.tabWidget.setCurrentIndex(j)
+        self.tabSwitch(j)
         self.autoResizePlotRange()
         self.comboBox_Ref_To.setModel(self.plotListModels[j])
 
@@ -604,6 +628,7 @@ class App_MainWindow(Ui_MainWindow):
                             names.append(name1)
         self.plotListModels[j].appendRow(names, dataXs, dataYs)
         self.tabWidget.setCurrentIndex(j)
+        self.tabSwitch(j)
         self.autoResizePlotRange()
         self.comboBox_Ref_To.setModel(self.plotListModels[j])
         

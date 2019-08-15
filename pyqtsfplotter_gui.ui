@@ -141,7 +141,72 @@
              <property name="alternatingRowColors">
               <bool>true</bool>
              </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::MultiSelection</enum>
+             </property>
             </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QToolButton" name="toolButton_Range_Select_Linear">
+               <property name="text">
+                <string>Linear</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton_Range_Select_Log">
+               <property name="text">
+                <string>Log</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_From">
+               <property name="decimals">
+                <number>3</number>
+               </property>
+               <property name="maximum">
+                <double>1000000.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>To</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_To">
+               <property name="decimals">
+                <number>3</number>
+               </property>
+               <property name="maximum">
+                <double>1000000.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>#</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox_Range_Steps">
+               <property name="minimum">
+                <number>2</number>
+               </property>
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -367,7 +432,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_Time_Traces">
           <attribute name="title">
@@ -391,8 +456,20 @@
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
              </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>120</number>
+             </attribute>
              <attribute name="horizontalHeaderHighlightSections">
               <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>20</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
              </attribute>
              <attribute name="verticalHeaderVisible">
               <bool>false</bool>
@@ -417,8 +494,20 @@
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
              </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>120</number>
+             </attribute>
              <attribute name="horizontalHeaderHighlightSections">
               <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>20</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
              </attribute>
              <attribute name="verticalHeaderVisible">
               <bool>false</bool>
@@ -556,7 +645,7 @@
          <item>
           <widget class="QLabel" name="label_6">
            <property name="text">
-            <string>By:</string>
+            <string>By</string>
            </property>
           </widget>
          </item>
@@ -592,7 +681,7 @@
          <item>
           <widget class="QLabel" name="label_8">
            <property name="text">
-            <string>At:</string>
+            <string>At</string>
            </property>
           </widget>
          </item>
@@ -635,7 +724,7 @@
          <item>
           <widget class="QLabel" name="label_9">
            <property name="text">
-            <string>From:</string>
+            <string>From</string>
            </property>
           </widget>
          </item>
@@ -774,7 +863,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>xRange:</string>
+            <string>xRange</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -835,7 +924,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>yRange:</string>
+            <string>yRange</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -947,7 +1036,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Font Size:</string>
+            <string>Font Size</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -985,7 +1074,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Linewidth:</string>
+            <string>Linewidth</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1013,7 +1102,7 @@
             <double>0.500000000000000</double>
            </property>
            <property name="value">
-            <double>2.000000000000000</double>
+            <double>3.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -1026,7 +1115,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Dots Size:</string>
+            <string>Dots Size</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1048,7 +1137,7 @@
             <double>0.500000000000000</double>
            </property>
            <property name="value">
-            <double>2.500000000000000</double>
+            <double>3.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -1061,7 +1150,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Density:</string>
+            <string>Density</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
