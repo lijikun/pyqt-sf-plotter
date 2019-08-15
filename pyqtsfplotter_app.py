@@ -466,12 +466,12 @@ class App_MainWindow(Ui_MainWindow):
                 name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
                 if numpy.array_equal(x0, x1):
                     y.append(y1 + number)
-                    names.append(name1 + ' + ' + str(number))
+                    names.append(name1 + ' (' + '+' if number > 0 else '-' + str(abs(number)) + ')')
                 else:
                     count += 1
             if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
-                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when modifying data.', \
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-Axis Points', \
+                    'Found ' + str(count) + ' selected datasets with different x-axis points. They will be ignored when modifying data.', \
                     QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                 if msgBox != QtWidgets.QMessageBox.Ok:
                     pass
@@ -498,19 +498,21 @@ class App_MainWindow(Ui_MainWindow):
         if n > 0:
             x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
             y = [y0 * number]
-            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) + ' (x' + str(number) + ')']
+            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) \
+                + ' (x' + str(number) + ')']
             count = 0
             for i in range(1, n):
                 (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
                 name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
                 if numpy.array_equal(x0, x1):
                     y.append(y1 * number)
-                    names.append(name1 + ' * ' + str(number))
+                    names.append(name1 + ' (x' + str(number) + ')')
                 else:
                     count += 1
             if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different Time Data', \
-                    'Found ' + str(count) + ' selected time traces with different time points. They will be ignored when modifying data.', \
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-Axis Points', \
+                    'Found ' + str(count) \
+                    + ' selected datasets with different x-axis points. They will be ignored when modifying data.', \
                     QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                 if msgBox != QtWidgets.QMessageBox.Ok:
                     pass
@@ -698,7 +700,7 @@ class App_MainWindow(Ui_MainWindow):
                 else:
                     count += 1
             if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-axis Points', \
+                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-Axis Points', \
                     'Found ' + str(count) + ' selected datasets with different x-axis points. They will be ignored when saving data.', \
                     QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                 if msgBox != QtWidgets.QMessageBox.Ok:
