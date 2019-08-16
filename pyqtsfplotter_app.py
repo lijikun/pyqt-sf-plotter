@@ -663,10 +663,11 @@ class App_MainWindow(Ui_MainWindow):
             self.listView_Raw_Traces.scrollToTop()
             self.listView_Raw_Traces.clearSelection()
         
+    __currentPath=''
     # Imports a text file for raw data.    
     def importRawFiles(self):
         openTextFiles = QtWidgets.QFileDialog.getOpenFileNames(self.centralwidget, \
-            'Import From .txt Or .csv Files', '', \
+            'Import From .txt Or .csv Files', self.__currentPath, \
             'All Supported Formats (*.txt *.csv);;KinTek File (*.txt);;ProDataCSV File (*.csv)', \
             'All Supported Formats (*.txt *.csv)', \
             QtWidgets.QFileDialog.Options() | QtWidgets.QFileDialog.DontUseNativeDialog)
@@ -677,6 +678,7 @@ class App_MainWindow(Ui_MainWindow):
                 openedAtLeastOneFile |= self.fListModel.appendRow(fileName)
             if openedAtLeastOneFile:
                 self.comboBox_Select_File.setCurrentIndex(lastIndex)
+                self.__currentPath = os.path.dirname(openTextFiles[0][0])
     
     # Saves time traces to .txt file, compatible with above function.
     __savedTxtCount = 1
@@ -708,7 +710,7 @@ class App_MainWindow(Ui_MainWindow):
                 else:
                     return
             saveTxtFile = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, \
-                'Save Data As Text File', 'data' + str(self.__savedTxtCount) + '.txt', \
+                'Save Data As Text File', self.__currentPath + '/data' + str(self.__savedTxtCount) + '.txt', \
                 'KinTek File (*.txt)', 'KinTek File (*.txt)', \
                 QtWidgets.QFileDialog.Options() | QtWidgets.QFileDialog.DontUseNativeDialog)
             if saveTxtFile[0]:
@@ -739,6 +741,7 @@ class App_MainWindow(Ui_MainWindow):
                                 file1.write('\t{0}'.format(y[seq1[k]][l]))
                             file1.write('\n')                        
                     file1.close()
+                    self.__currentPath = os.path.dirname(saveTxtFile[0])
                     self.__savedTxtCount += 1
                 
     # Exports figure area as image files.
@@ -747,7 +750,7 @@ class App_MainWindow(Ui_MainWindow):
         nameString = ['Time Traces', 'Spectra']
         saveFigFile = QtWidgets.QFileDialog.getSaveFileName(self.centralwidget, \
             'Save ' + nameString[self.stackedWidget_right.currentIndex()] + ' As Figure', \
-            'Figure' + str(self.__savedFigureCount), \
+            self.__currentPath + '/figure' + str(self.__savedFigureCount), \
             '.png Raster Graphic (*.png);;.jpg Raster Graphic (*.jpg);;.tif Raster Graphic (*.tif);;.svg Vector Graphic (*.svg);;.eps Vector Graphic (*.eps)', \
             '.png Raster Graphic (*.png)', \
             QtWidgets.QFileDialog.Options() | QtWidgets.QFileDialog.DontUseNativeDialog)
@@ -755,6 +758,7 @@ class App_MainWindow(Ui_MainWindow):
             self.__savedFigureCount += 1
             self.figures[self.stackedWidget_right.currentIndex()].savefig(saveFigFile[0], \
                 dpi = self.horizontalSlider_DPI.value())
+            self.__currentPath = os.path.dirname(saveFigFile[0])
  
 # Main function.    
 if __name__ == "__main__":
