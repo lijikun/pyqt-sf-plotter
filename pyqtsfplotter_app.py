@@ -174,7 +174,6 @@ class App_MainWindow(Ui_MainWindow):
                         QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
             else:
                 self.autoResizePlotRange()
-                self.pushButton_Exec.setText('exec() may have screwed stuff up!')
     
     def resetCurrentCanvas(self):
         j = self.tabWidget.currentIndex()
@@ -489,30 +488,18 @@ class App_MainWindow(Ui_MainWindow):
         indices = pTableView.selectedIndexes()
         n = len(indices)
         if n > 0:
-            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
-            y = [y0 + number]
-            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) \
-                + ' (' + '+' if number > 0 else '-' + str(abs(number)) + ')']
-            count = 0
-            for i in range(1, n):
-                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+            x = []
+            y = []
+            names = []
+            for i in range(n):
+                x1, y1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
                 name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
-                if numpy.array_equal(x0, x1):
-                    y.append(y1 + number)
-                    names.append(name1 + ' (' + '+' if number > 0 else '-' + str(abs(number)) + ')')
-                else:
-                    count += 1
-            if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-Axis Points', \
-                    'Found ' + str(count) + ' selected datasets with different x-axis points. They will be ignored when modifying data.', \
-                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
-                if msgBox != QtWidgets.QMessageBox.Ok:
-                    pass
-                else:
-                    return
+                x.append(x1)
+                y.append(y1 + number)
+                names.append(name1 + ' (' + '+' if number > 0 else '-' + str(abs(number)) + ')')
             self.hidePlotSelected()
             self.selectNoneTraces()
-            self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
+            self.plotListModels[j].appendRow(names, x, y)
             self.autoResizePlotRange()
             
     def mulSelectedBy(self):
@@ -529,31 +516,18 @@ class App_MainWindow(Ui_MainWindow):
         indices = pTableView.selectedIndexes()
         n = len(indices)
         if n > 0:
-            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
-            y = [y0 * number]
-            names = [self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole) \
-                + ' (x' + str(number) + ')']
-            count = 0
-            for i in range(1, n):
-                (x1, y1) = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+            x = []
+            y = []
+            names = []
+            for i in range(n):
+                x1, y1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
                 name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
-                if numpy.array_equal(x0, x1):
-                    y.append(y1 * number)
-                    names.append(name1 + ' (x' + str(number) + ')')
-                else:
-                    count += 1
-            if count > 0:
-                msgBox = QtWidgets.QMessageBox.question(self.centralwidget, 'Different X-Axis Points', \
-                    'Found ' + str(count) \
-                    + ' selected datasets with different x-axis points. They will be ignored when modifying data.', \
-                    QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
-                if msgBox != QtWidgets.QMessageBox.Ok:
-                    pass
-                else:
-                    return
+                x.append(x1)
+                y.append(y1 * number)
+                names.append(name1 + ' (x' + str(number) + ')')
             self.hidePlotSelected()
             self.selectNoneTraces()
-            self.plotListModels[j].appendRow(names, [x0] * (n - count), y)
+            self.plotListModels[j].appendRow(names, x, y)
             self.autoResizePlotRange()
  
     def addSVDResultsToPlot(self):
@@ -643,8 +617,8 @@ class App_MainWindow(Ui_MainWindow):
         for index0 in self.listView_Raw_Traces.selectedIndexes():
             dataX0, dataY0 = (self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.UserRole))
             name0 = 'File' + str(self.comboBox_Select_File.currentIndex()) + ': ' \
-                + ('l' if self.__axisType else 't') + '=' \
-                + str(self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.DisplayRole))
+                + str(self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.DisplayRole)) \
+                + (' nm' if self.__axisType else ' s')
             dataXs.append(dataX0)
             dataYs.append(dataY0)
             names.append(name0)
@@ -656,8 +630,7 @@ class App_MainWindow(Ui_MainWindow):
                         if pAxis[i] == self.listView_Raw_Traces.model().data(index0, role = QtCore.Qt.DisplayRole):
                             dataX1 = pFileObj.t if self.__axisType else pFileObj.w
                             dataY1 = pFileObj.z[i] if self.__axisType else [z1[i] for z1 in pFileObj.z]
-                            name1 = 'File' + str(k) + ': ' + ('l' if self.__axisType else 't') \
-                                + '=' + str(pAxis[i])
+                            name1 = 'File' + str(k) + ': ' + str(pAxis[i]) + (' nm' if self.__axisType else ' s')
                             dataXs.append(dataX1)
                             dataYs.append(dataY1)
                             names.append(name1)

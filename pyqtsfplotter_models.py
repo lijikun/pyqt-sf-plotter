@@ -308,7 +308,7 @@ class PlotListModel(QtCore.QAbstractTableModel):
             line1.set_markevery(y)
         self.__axes.set_xlabel(self.__axes.get_xlabel(), fontsize = PlotListModel.fontSize)                    
         self.__axes.tick_params(labelsize = PlotListModel.fontSize)
-        
+        self.__axes.tick_params(which = 'both', bottom = 'on', top = 'on', left = 'on', right = 'on')
         self.refreshLegend()
             
     def autoResizeAxes(self):
