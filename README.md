@@ -8,7 +8,11 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
 
 * Just clone this repo to install to a computer. 
 
-  ```git clone https://github.com/lijikun/pyqt-sf-plotter/```
+  ```
+  cd [*your directory*]
+  git clone https://github.com/lijikun/pyqt-sf-plotter/
+  cd pyqt-sf-plotter
+  ```
 
   Make sure the following dependencies exist on the computer: 
   * Qt 5.7.1
