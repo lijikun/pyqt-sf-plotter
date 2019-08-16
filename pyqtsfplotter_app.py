@@ -155,6 +155,7 @@ class App_MainWindow(Ui_MainWindow):
         self.toolButton_Mul_By.clicked.connect(self.mulSelectedBy)
         self.toolButton_Ref_To.clicked.connect(self.refSelectedTo)
         self.toolButton_Internal_Ref.clicked.connect(self.internalRef)
+        self.toolButton_Mean_Std_Dev.clicked.connect(self.addMeanStdDev)
 
     # Event handling function
     def execPlotCommand(self):
@@ -378,6 +379,36 @@ class App_MainWindow(Ui_MainWindow):
             pTableView.model().setData( \
                 pTableView.selectedIndexes(), values, role = QtCore.Qt.CheckStateRole) 
                 
+    def addMeanStdDev(self):
+        j = self.tabWidget.currentIndex()
+        if j == 0:
+            pTableView = self.tableView_Traces
+        elif j == 1:
+            pTableView = self.tableView_Spectra
+        else:
+            return
+        indices = pTableView.selectedIndexes()
+        n = len(indices)
+        if n > 1:
+            x0, y0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.UserRole)
+            name0 = self.plotListModels[j].data(indices[0], role = QtCore.Qt.DisplayRole)
+            y = [y0]
+            count = 0
+            for i in range (1, n):
+                x1, y1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.UserRole)
+                #name1 = self.plotListModels[j].data(indices[i], role = QtCore.Qt.DisplayRole)
+                if numpy.array_equal(x0, x1):
+                    y.append(y1)
+            n0 = n - count;
+            if n0 > 1:
+                y_mean = numpy.mean(y, axis = 0)
+                y_stddev = numpy.std(y, axis = 0, ddof = 1)                
+                self.hidePlotSelected()
+                self.selectNoneTraces()
+                self.plotListModels[j].appendRow([name0 + ' (Mean)', name0 + ' (Std. Dev.)'], \
+                    [x0] * 2, [y_mean, y_stddev])
+                self.autoResizePlotRange()
+    
     def internalRef(self):
         x_ref = self.doubleSpinBox_Internal_Ref.value()
         j = self.tabWidget.currentIndex()

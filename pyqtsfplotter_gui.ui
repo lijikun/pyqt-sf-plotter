@@ -746,6 +746,16 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
+          <widget class="QToolButton" name="toolButton_Mean_Std_Dev">
+           <property name="toolTip">
+            <string>Calculate the sample mean and standard deivation of selected datasets.</string>
+           </property>
+           <property name="text">
+            <string>Mean &amp;&amp; Std. Dev.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QToolButton" name="toolButton_Ref_To">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -757,7 +767,7 @@
             <string>Subtract selected dataset(s) by a reference dataset.</string>
            </property>
            <property name="text">
-            <string>Calc. Difference </string>
+            <string>Difference</string>
            </property>
           </widget>
          </item>
