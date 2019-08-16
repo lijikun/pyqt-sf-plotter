@@ -89,7 +89,11 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_10">
              <item>
-              <widget class="QComboBox" name="comboBox_Select_File"/>
+              <widget class="QComboBox" name="comboBox_Select_File">
+               <property name="toolTip">
+                <string>Select a file to see the data inside.</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QToolButton" name="toolButton_Remove_File">
@@ -150,6 +154,9 @@
             <layout class="QHBoxLayout" name="horizontalLayout_12">
              <item>
               <widget class="QToolButton" name="toolButton_Range_Select_Linear">
+               <property name="toolTip">
+                <string>Select traces above in linear intervals.</string>
+               </property>
                <property name="text">
                 <string>Linear</string>
                </property>
@@ -157,6 +164,9 @@
              </item>
              <item>
               <widget class="QToolButton" name="toolButton_Range_Select_Log">
+               <property name="toolTip">
+                <string>Select traces above in logarithmic intervals.</string>
+               </property>
                <property name="text">
                 <string>Log</string>
                </property>
@@ -164,6 +174,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_From">
+               <property name="toolTip">
+                <string>Lower limit of range.</string>
+               </property>
                <property name="suffix">
                 <string> nm</string>
                </property>
@@ -184,6 +197,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Range_To">
+               <property name="toolTip">
+                <string>Upper limit of range.</string>
+               </property>
                <property name="suffix">
                 <string> nm</string>
                </property>
@@ -204,6 +220,9 @@
              </item>
              <item>
               <widget class="QSpinBox" name="spinBox_Range_Steps">
+               <property name="toolTip">
+                <string>Number of datasets to select in range.</string>
+               </property>
                <property name="minimum">
                 <number>2</number>
                </property>
@@ -387,6 +406,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Resolution of output image file.</string>
+           </property>
            <property name="minimum">
             <number>100</number>
            </property>
@@ -438,7 +460,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_Time_Traces">
           <attribute name="title">
@@ -601,7 +623,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_Export_Traces">
            <property name="toolTip">
-            <string>Export selected time traces in the table as KinTek format text file.</string>
+            <string>Export selected dataset(s) in the table as KinTek format text file.</string>
            </property>
            <property name="text">
             <string>Save to txt ...</string>
@@ -625,7 +647,7 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>Add data by a scalar number.</string>
+            <string>Add selected dataset(s) by a scalar number.</string>
            </property>
            <property name="text">
             <string>+</string>
@@ -641,7 +663,7 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>Multiply data by a number.</string>
+            <string>Multiply selected dataset(s) by a number.</string>
            </property>
            <property name="text">
             <string>×</string>
@@ -663,6 +685,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string/>
+           </property>
            <property name="decimals">
             <number>3</number>
            </property>
@@ -679,6 +704,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="toolButton_Internal_Ref">
+           <property name="toolTip">
+            <string>Substract each selected dataset by a internal reference point.</string>
+           </property>
            <property name="text">
             <string>Internal Ref.</string>
            </property>
@@ -698,6 +726,12 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>The time/wavelength at which the internal reference is taken.</string>
+           </property>
+           <property name="suffix">
+            <string> nm</string>
            </property>
            <property name="decimals">
             <number>3</number>
@@ -720,7 +754,7 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>Subtract selected data by a reference.</string>
+            <string>Subtract selected dataset(s) by a reference dataset.</string>
            </property>
            <property name="text">
             <string>Calc. Difference </string>
@@ -741,6 +775,9 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="toolTip">
+            <string>Select the reference dataset.</string>
            </property>
           </widget>
          </item>
@@ -794,7 +831,7 @@
          <item>
           <widget class="QToolButton" name="toolButton_Reset">
            <property name="toolTip">
-            <string/>
+            <string>Clear all datasets.</string>
            </property>
            <property name="text">
             <string>Reset</string>
@@ -869,7 +906,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>xRange</string>
+            <string>x-Range</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -930,7 +967,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>yRange</string>
+            <string>y-Range</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1121,7 +1158,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Dots Size</string>
+            <string>Dot Size</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1134,7 +1171,7 @@
             <number>1</number>
            </property>
            <property name="minimum">
-            <double>1.000000000000000</double>
+            <double>0.500000000000000</double>
            </property>
            <property name="maximum">
             <double>20.000000000000000</double>
@@ -1143,7 +1180,7 @@
             <double>0.500000000000000</double>
            </property>
            <property name="value">
-            <double>3.000000000000000</double>
+            <double>2.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -1175,7 +1212,7 @@
             <number>20</number>
            </property>
            <property name="value">
-            <number>100</number>
+            <number>60</number>
            </property>
           </widget>
          </item>

@@ -263,9 +263,11 @@ class App_MainWindow(Ui_MainWindow):
         if j == 1:
             #self.pushButton_Export_Traces.setDisabled(True)
             self.checkBox_LogX.setDisabled(True)
+            self.doubleSpinBox_Internal_Ref.setSuffix(' s')
         else:
             #self.pushButton_Export_Traces.setDisabled(False)
             self.checkBox_LogX.setDisabled(False)
+            self.doubleSpinBox_Internal_Ref.setSuffix(' nm')
         self.comboBox_Ref_To.setModel(self.plotListModels[j])
         self.plotListModels[j].setGrid(self.checkBox_Grid.isChecked())
         self.plotListModels[j].setLegend(self.checkBox_Legend.isChecked())
