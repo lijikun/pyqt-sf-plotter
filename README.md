@@ -7,11 +7,11 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
 ## Installing and Running
 
 * Just clone this repo to install to a computer. Make sure the following dependencies exist on the computer: 
-  * Qt
-  * Python 
-  * PyQt 
-  * Numpy 
-  * Matplotlib
+  * Qt 5.7.1
+  * Python 3.5.3
+  * PyQt 5.7
+  * Numpy 1.12.1
+  * Matplotlib 2.0.0
  
    Typically most Python and Qt distributions will suffice.
 
