@@ -14,9 +14,9 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
   cd pyqt-sf-plotter
   ```
 
-  Make sure the following dependencies exist on the computer: 
-  * Qt 5.7.1
-  * Python 3.5.3
+  Make sure the following dependencies exist on the computer, with indicated or newer versions: 
+  * Qt 5.7
+  * Python 3.5
   * PyQt 5.7
   * Numpy 1.12.1
   * Matplotlib 2.0.0
