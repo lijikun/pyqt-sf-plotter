@@ -6,7 +6,11 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
 
 ## Installing and Running
 
-* Just clone this repo to install to a computer. Make sure the following dependencies exist on the computer: 
+* Just clone this repo to install to a computer. 
+
+  ```git clone https://github.com/lijikun/pyqt-sf-plotter/```
+
+  Make sure the following dependencies exist on the computer: 
   * Qt 5.7.1
   * Python 3.5.3
   * PyQt 5.7
@@ -27,8 +31,7 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
   chmod +x pyqtsfplotter_app.py
   ./pyqtsfplotter_app.py
   ```
-
-This program is never actually tested on MacOS, but should run fine just like on Linux.
+  This program is never actually tested on MacOS, but should run fine just like on Linux.
 
 * To run on Windows, first put a Python3's `python.exe` in `PATH`, and run:
 
