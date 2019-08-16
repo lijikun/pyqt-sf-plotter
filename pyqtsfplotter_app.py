@@ -405,7 +405,7 @@ class App_MainWindow(Ui_MainWindow):
                 y_stddev = numpy.std(y, axis = 0, ddof = 1)                
                 self.hidePlotSelected()
                 self.selectNoneTraces()
-                self.plotListModels[j].appendRow([name0 + ' (Mean)', name0 + ' (Std. Dev.)'], \
+                self.plotListModels[j].appendRow([name0 + ' (Mean)', name0 + ' (StdDev.)'], \
                     [x0] * 2, [y_mean, y_stddev])
                 self.autoResizePlotRange()
     
