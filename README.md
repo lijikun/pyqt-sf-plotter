@@ -45,10 +45,10 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in Py
     
 ## Notes on Modifying This Program
 
-* To change the GUI, don't modify `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run
+* To modify the GUI, don't edit `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run `pyuic5` to generate it automatically.
 
   ```
   pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py
   ```
 
-* The main window is set to have a size of at least 1280 x 960 pixels. This limit can be reduced if changes are made to the UI, but the program is not guaranteed to run properly. 
+* The minimum size of the main window is set 1280 x 960 pixels. This limit can be lifted if changes are made to the UI, but the program is not guaranteed to run properly. 
