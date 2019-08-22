@@ -1,6 +1,6 @@
 # pyqt-sf-plotter
 
-Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data written in PyQt.
+Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data, written in Python 3 with PyQt 5.
 
 ![ScreenShot](/exampleData/screenshot-xfce.png)
 
