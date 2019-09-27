@@ -577,20 +577,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_Remove_Selected_Traces">
-           <property name="toolTip">
-            <string>Remove selected data from table above.</string>
-           </property>
-           <property name="text">
-            <string>Remove</string>
-           </property>
-           <property name="icon">
-            <iconset theme="edit-delete">
-             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QToolButton" name="toolButton_Line">
            <property name="toolTip">
             <string>Toggle selected to line plot.</string>
@@ -617,6 +603,20 @@
            </property>
            <property name="text">
             <string>Hide</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_Remove_Selected_Traces">
+           <property name="toolTip">
+            <string>Remove selected data from table above.</string>
+           </property>
+           <property name="text">
+            <string>Remove</string>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-delete">
+             <normaloff>../../../.designer/backup</normaloff>../../../.designer/backup</iconset>
            </property>
           </widget>
          </item>
@@ -731,7 +731,7 @@
             <string>The time/wavelength at which the internal reference is taken.</string>
            </property>
            <property name="suffix">
-            <string> nm</string>
+            <string> s</string>
            </property>
            <property name="decimals">
             <number>3</number>
