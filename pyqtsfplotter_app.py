@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Executable for this program.
 # Naming style tries to be consistent with PyQt:
 #   ClassDefinition
