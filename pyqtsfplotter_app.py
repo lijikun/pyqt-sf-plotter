@@ -26,7 +26,7 @@ from pyqtsfplotter_models import DataFileObject, DataInSingleFileListModel, \
 def aboutMessage():
     QtWidgets.QMessageBox.information(None, 'About PyQt Stopped-Flow Plotter', \
 """Author: Jikun Li
-Version: 0.1.0
+Version: 0.2.0
 
 The program is developed using the following open source tools and libraries:
     Python 3.5.3 <https://docs.python.org/3/license.html>
