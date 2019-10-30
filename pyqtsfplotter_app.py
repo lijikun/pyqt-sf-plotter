@@ -35,7 +35,7 @@ The program is developed using the following open source tools and libraries:
     NumPy 1.12.1 <https://docs.scipy.org/doc/numpy/license.html>
     Matplotlib 2.0.0 <http://matplotlib.org/users/license.html>
     
-No warranty is provided for either performance or correctness of the program.
+THis program uses GPL v3 license. No warranty is provided for either performance or correctness of the program.
 """, \
     QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
 
