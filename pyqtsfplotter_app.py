@@ -41,6 +41,11 @@ THis program is provided under the GPL v3 license.
 
 # Modifies QMainWindow class.
 class QMainWindow_Modified(QtWidgets.QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setAcceptDrops(True)
+        
+        
     def closeEvent(self, event):
         reallyQuit = QtWidgets.QMessageBox.warning(self, 'Exit Program', \
             'All unsaved data will be lost! \nDo you really want to quit?', \
@@ -56,13 +61,15 @@ class QMainWindow_Modified(QtWidgets.QMainWindow):
         super().resizeEvent(event)
         self.windowSizeChanged.emit()
         
-    self.setAcceptDrops(True)
     filesDropped = QtCore.pyqtSignal(list)
-    def dropEvent(self, event):
+    def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
-            self.filesDropped.emit(droppedFiles)
+            event.accept()
         else:
             event.ignore()
+            
+    def dropEvent(self, event):
+        self.filesDropped.emit(event.mimeData().urls())
         
         
 class MPLToolbar_Modified(mpl_qt5.NavigationToolbar2QT):
@@ -697,8 +704,18 @@ class App_MainWindow(Ui_MainWindow):
                 self.comboBox_Select_File.setCurrentIndex(lastIndex)
                 self.__currentPath = os.path.dirname(openTextFiles[0][0])
                 
-    def importDroppedFiles(self, droppedFiles):
+    def importDroppedFiles(self, droppedFileUrls):
+        droppedFiles = [x.toString().replace('file:///','') for x in droppedFileUrls]
         print('Files dropped:', droppedFiles)
+        if droppedFiles:
+            openedAtLeastOneFile = False
+            lastIndex = self.comboBox_Select_File.model().rowCount()
+            for fileName in droppedFiles:
+                openedAtLeastOneFile |= self.fListModel.appendRow(fileName)
+            if openedAtLeastOneFile:
+                self.comboBox_Select_File.setCurrentIndex(lastIndex)
+                self.__currentPath = os.path.dirname(droppedFiles[0])
+        
     
     # Saves time traces to .txt file, compatible with above function.
     __savedTxtCount = 1
