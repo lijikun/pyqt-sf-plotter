@@ -50,10 +50,20 @@ class QMainWindow_Modified(QtWidgets.QMainWindow):
             event.accept()
         else:
             event.ignore()
+            
     windowSizeChanged = QtCore.pyqtSignal()
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.windowSizeChanged.emit()
+        
+    self.setAcceptDrops(True)
+    filesDropped = QtCore.pyqtSignal(list)
+    def dropEvent(self, event):
+        if event.mimeData().hasUrls():
+            self.filesDropped.emit(droppedFiles)
+        else:
+            event.ignore()
+        
         
 class MPLToolbar_Modified(mpl_qt5.NavigationToolbar2QT):
     toolitems = [item for item in mpl_qt5.NavigationToolbar2QT.toolitems \
@@ -115,7 +125,8 @@ class App_MainWindow(Ui_MainWindow):
         self.toolButton_Scatter.clicked.connect(self.scatterPlotSelected)
         self.toolButton_Hide.clicked.connect(self.hidePlotSelected)
         self.pushButton_Export_Traces.clicked.connect(self.saveSelectedTracesToTxt)
-        MainWindow.windowSizeChanged.connect(self.resizedWindowArea)  
+        MainWindow.windowSizeChanged.connect(self.resizedWindowArea)
+        MainWindow.filesDropped.connect(self.importDroppedFiles)
         
         # Embeds matplotlib plots.        
         self.figures = [mpl_figure.Figure(), mpl_figure.Figure()]
@@ -685,6 +696,9 @@ class App_MainWindow(Ui_MainWindow):
             if openedAtLeastOneFile:
                 self.comboBox_Select_File.setCurrentIndex(lastIndex)
                 self.__currentPath = os.path.dirname(openTextFiles[0][0])
+                
+    def importDroppedFiles(self, droppedFiles):
+        print('Files dropped:', droppedFiles)
     
     # Saves time traces to .txt file, compatible with above function.
     __savedTxtCount = 1
