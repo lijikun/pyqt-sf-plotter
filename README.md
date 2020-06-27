@@ -45,7 +45,7 @@ Cross-platform GUI plotter for stopped-flow (SF) spectroscopy data, written in P
     
 ## Notes on Modifying This Program
 
-* To modify the GUI, don't edit `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run `pyuic5` to generate it automatically.
+* To modify the GUI, don't edit `pyqtsfplotter_gui.py` directly. Rather, use Qt Designer to edit `pyqtsfplotter_gui.ui` and run `pyuic5` to generate it automatically. You need the `pyqt5-dev-tools` package installed.
 
   ```
   pyuic5 pyqtsfplotter_gui.ui -o pyqtsfplotter_gui.py
