@@ -707,7 +707,7 @@ class App_MainWindow(Ui_MainWindow):
     def importDroppedFiles(self, droppedFileUrls):
         if os.name == 'posix':
             droppedFiles = [x.toString().replace('file://','') for x in droppedFileUrls]
-        else if os.name == 'nt':
+        elif os.name == 'nt':
             droppedFiles = [x.toString().replace('file:///','') for x in droppedFileUrls]
         else:
             droppedFiles = [x.toString() for x in droppedFileUrls]
