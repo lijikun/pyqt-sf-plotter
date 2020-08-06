@@ -705,7 +705,12 @@ class App_MainWindow(Ui_MainWindow):
                 self.__currentPath = os.path.dirname(openTextFiles[0][0])
                 
     def importDroppedFiles(self, droppedFileUrls):
-        droppedFiles = [x.toString().replace('file:///','') for x in droppedFileUrls]
+        if os.name == 'posix':
+            droppedFiles = [x.toString().replace('file://','') for x in droppedFileUrls]
+        else if os.name == 'nt':
+            droppedFiles = [x.toString().replace('file:///','') for x in droppedFileUrls]
+        else:
+            droppedFiles = [x.toString() for x in droppedFileUrls]
         print('Files dropped:', droppedFiles)
         if droppedFiles:
             openedAtLeastOneFile = False
